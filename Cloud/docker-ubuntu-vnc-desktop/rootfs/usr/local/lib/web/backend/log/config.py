@@ -59,8 +59,7 @@ class LoggingConfiguration(object):
                                                 '%-22s' % (kwargs['name']))
             NO_COLOR_FORMAT = NO_COLOR_FORMAT.replace(
                 '%(threadName)-22s', '%-22s' % (kwargs['name']))
-            FILE_FORMAT = FILE_FORMAT.replace(
-                '%(threadName)-22s', '%s' % (kwargs['name']))
+            FILE_FORMAT = FILE_FORMAT.replace('%(threadName)-22s', f"{kwargs['name']}")
 
         # Log to rotating file
         try:
@@ -76,7 +75,7 @@ class LoggingConfiguration(object):
                 # Create a new log file on every new
                 fh.doRollover()
         except IOError as e:
-            print('ignore to log to {}: {}'.format(log_filename, e))
+            print(f'ignore to log to {log_filename}: {e}')
 
         # Log to sys.stderr using log level passed through command line
         if log_level != logging.NOTSET:
